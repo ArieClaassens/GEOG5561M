@@ -141,6 +141,109 @@ public class Storage {
 		return minimum;
 	}
 	
+	/*
+	 * Images are based on arrays containing values between 0 and 255. 
+	 * To convert our data into an image, we need to re-range it between these two values. 
+	 * We need a method that will take the data in our array, and stretch or compress the 
+	 * numbers across a given range, that is, the minimum value matches a new minimum, 
+	 * the maximum a new maximum, and the rest of the data is spread between them, 
+	 * proportional to the values in the original dataset. 
+	 */
+	
+	double [][] getRerangedData(double newMinimum, double newMaximum) {
+	    // Set up double variables containing currentMaximum and currentMinimum (where could we get these from...?)
+	    double currentMinimum = this.getMinimum();
+	    double currentMaximum = this.getMaximum();
+	    
+	    // Make a double[][] array called tempArray, and size [data.length][data[0].length]
+	    double [][] tempArray = new double [data.length][data[0].length];
+	    
+	    // Open loop with index i down data rows
+	    for (int i = 0; i < data.length; i++) {
+		// Open loop with index j across a row
+		for (int j = 0; j < data[i].length; j++) {
+		    // tempArray[i][j] = data[i][j]
+		    tempArray[i][j] = data[i][j];
+		    // tempArray[i][j] = tempArray[i][j] - currentMinimum (so values between 0 and currentMaximum - currentMinimum)
+		    tempArray[i][j] = tempArray[i][j] - currentMinimum;
+		    
+		    // tempArray[i][j] = tempArray[i][j] / (currentMaximum - currentMinimum) (so values between 0 and 1)
+		    tempArray[i][j] = tempArray[i][j] / (currentMaximum - currentMinimum);
+		    // tempArray[i][j] = tempArray[i][j] * (newMaximum - newMinimum) (so values between 0 and newMaximum - newMinimum)
+		    tempArray[i][j] = tempArray[i][j] * (newMaximum - newMinimum);
+		    
+		    // tempArray[i][j] = tempArray[i][j] + newMinimum (so values between newMinimum and newMaximum)
+		    tempArray[i][j] = tempArray[i][j] + newMinimum;
+		    
+		// End loop across row
+		}
+		// End loop down rows
+	    }
+
+	 // return tempArray 
+	 return tempArray;   
+	}
+	
+	//Next, the method to save our data into a 1D array.
+	//Images, strangely, are stored in 1D arrays. This is because 1D arrays are slightly more efficient to process. 
+	//The data inside an image array is actually stored in quite a complicated format, as we'll see in 
+	//our lecture on images. However, for now, let's just copy the data out of our 2D array and into a 1D array 
+	//of the same, double, type.
+	
+	double [] get1DArray(){
+	    //create a reranged array
+	    //Note that here we're calling another method in our Storage class from within another method. 
+	    //This means that we don't need to call store.getRerangedData(0.0,255.0) 
+	    //-- we are *inside* the store object; we can just call the method directly. 
+	    double[][] reranged = getRerangedData(0.0,255.0);
+	    
+	    //Convert 2D array into 1D array:
+	    // Make a double tempArray [reranged.length * reranged[0].length]
+	    int arraySize = reranged.length * reranged[0].length; 
+	    double[] tempArray = new double [arraySize];
+	    
+	    // Open loop with index i down reranged rows
+	    for (int i = 0; i < reranged.length; i++) {
+		
+	    
+	    	// Open loop with index j across a row, using a constant dimension for the columns
+		//We would need a different algorithm for varying columnar dimensions.
+		//Images are square or rectangular, most of the time....
+		for (int j = 0; j < reranged[0].length; j++) {
+		    // tempArray[????] = reranged[i][j]
+		    /*
+		     * int counter = i * j;
+		     * tempArray[counter] = reranged[i][j];
+		     * Won't work because array counters start at zero and 0 x any number is zero
+		     */
+		    //(reranged[0].length * i) = number of columns processed times the current row counter, e.g. 10 columns x row 2 = 20
+		    //j = current column
+		    tempArray[(reranged[0].length * i) + j] = reranged[i][j];
+		    /*
+		     *  the width of one row is reranged[0].length, and the number of rows you've completely processed is i. 
+		     *  Remember, you don't want to add on the width of the current row as you're only part-way across it. 
+		     *  The cells processed in previous rows is thus: reranged[0].length * i. 
+		     *  If you're not convinced (perhaps because you think i is the current row count, rather than the 
+		     *  rows that have been processed), consider the situation where i == 1. When this is the case, 
+		     *  reranged[0].length * i represents the values in the first "zero" row, which is the row that 
+		     *  has been completed, and none of the current row. This is one of those nice examples that works 
+		     *  because array indices start at zero, not one. 
+		     *  
+		     *  The distance across the current row is j. Again, because indices start at zero, 
+		     *  although j is counting the values looped through, it also gives the correct position for the next value. 
+		     */
+		    
+		    
+	    	// End loop across row
+		}
+	    // End loop across
+	    }
+	    // return tempArray 
+	    return tempArray;
+	    
+	    
+	    
+	}
 	
 	
 }

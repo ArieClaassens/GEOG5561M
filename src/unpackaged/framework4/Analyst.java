@@ -1,6 +1,6 @@
 /*
 * Class:	Analyst
-* Version:	 1.3
+* Version:	 1.4
 * Author: 	Arie Claassens
 * Date:		GEOG5561M Oct-Dec 2014
 * Copyright notice
@@ -87,6 +87,40 @@ public class Analyst {
 		store2.printArray();
 		
 		System.out.println("---------------------------------------------------------------");
+		
+		//Part4 practical
+		//create new Storage object called store
+		Storage mystore2 = new Storage();
+			
+		//Populate the array with random data
+		mystore2.setRandomData();
+		
+		//Rerange the array with the new method
+		//Get the results back in a new (temp) array
+		double[][] resultsArray = mystore2.getRerangedData(0,255);
+		
+		//Print out the resultsArray contents
+		//outer loop for rows
+		for (int i = 0; i < resultsArray.length; i++) {
+		    //inner loop for columns
+		    for (int j = 0; j < resultsArray[i].length; j++) {
+			System.out.print(resultsArray[i][j] + " ");
+			}
+		    System.out.println(" ");
+		}
+		System.out.println(" ");
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		//Test the 1D Array conversion function
+		double [] resultsArray1D = mystore2.get1DArray();
+		//Print out the resultsArray contents
+		//loop
+		for (int i = 0; i < resultsArray1D.length; i++) {
+			System.out.println("resultsArray1D item " + i + " is: " + resultsArray1D[i] + " ");
+		}
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		
+		
 	}
 
 	public static void main (String args[]) {
