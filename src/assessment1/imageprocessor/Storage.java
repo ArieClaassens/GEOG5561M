@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Arie Claassens: <a href="http://www.arie.co.za/">http://www.arie.co.za/</a>
+ * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  * Johannesburg, South Africa
  * All rights reserved.
  *
@@ -20,10 +20,11 @@ package imageprocessor;
 
 /**
  *
- * @author Arie Claassens:
- * <a href="http://www.arie.co.za/">http://www.arie.co.za/</a>
+ * @author Student 200825599:
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  */
 public class Storage {
+
     //define a 300 x 300 array of type double (300 rows by 300 columns)
     double data[][] = new double[300][300];
 
@@ -66,7 +67,7 @@ public class Storage {
         }
         return myArray;
     }
-    
+
     //method to print out the array contents
     void printArray() {
         //print out array (to verify cell contents)
@@ -83,4 +84,35 @@ public class Storage {
         }
     }
 
+    /**
+     * Bubblesort Method
+     *
+     * @param x : Integer array of values to sort
+     *
+     * This version of bubble sort continues making passes over the array as
+     * long as there were any exchanges. If the array is already sorted, this
+     * sort will stop after only one pass. From
+     * http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html
+     */
+    public static void bubbleSort2(int[] x) {
+        boolean doMore = true;
+        while (doMore) {
+            doMore = false;  // assume this is last pass over array
+            for (int i = 0; i < x.length - 1; i++) {
+                if (x[i] > x[i + 1]) {
+                    // exchange elements
+                    int temp = x[i];
+                    x[i] = x[i + 1];
+                    x[i + 1] = temp;
+                    doMore = true;  // after an exchange, must look again 
+                }
+            }
+        }
+        //Test the bubble sort. Print out the results
+        //for (int i = 0; i < x.length; i++) {
+        //    System.out.println(x[i]);
+        //}
+    }
+
+   
 }

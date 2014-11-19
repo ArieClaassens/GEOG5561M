@@ -49,29 +49,29 @@ public class Analyst {
          * Populate the Storage object (array) with image data
          */
         double[][] myArray = data.getData();
-        
-         //Cast the array values to INTEGER
+
+        //Cast the array values to INTEGER
         //Convert double array to int array
         /**
          * Mutator method to convert double array to int array
+         *
          * @param newArray
          *
          */
-        
         int[][] intArray = new int[myArray.length][];
         //outer loop for rows
         for (int i = 0; i < myArray.length; i++) {
             //inner loop for columns
             for (int j = 0; j < myArray[i].length; j++) {
                 //Cast the double value to an int value
-                intArray[i][j] = (int)myArray[i][j];
+                intArray[i][j] = (int) myArray[i][j];
                 //Print out array elements by row, with newline at the end of each inner loop
                 System.out.print(myArray[i][j] + " ");
             }
             System.out.println(" ");
         }
         System.out.println(" ");
-        
+
 
         /*
          //Print out the resultsArray contents
@@ -90,25 +90,20 @@ public class Analyst {
         //copy values from data to store
         store.setData(myArray);
 
-       
-
-    }
-
         //Bubble sort trail run
     //int[] numbers = {5, 188, 14, 171, 56, 9000, 1, 12};
     //Storage.bubbleSort2(numbers);
     //Check store object contents
     //store.printArray();
-
     /**
      * Display the pre-processing image
      */
-        //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
+    //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
     //new Display("Original Image", store.getData(0, 0, 299, 299));
     /**
      * Image processing
      */
-        //PROCESSING IS DONE HERE
+    //PROCESSING IS DONE HERE
     /**
      * Display the post-processing image
      */
@@ -119,7 +114,8 @@ public class Analyst {
  *
  * @param args the command line arguments
  */
-public static void main(String args[]) {
-        new Analyst();
-    }
+
+public static void main (String args[]) {
+		new Analyst ();
+	}
 }
