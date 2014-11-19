@@ -50,29 +50,6 @@ public class Analyst {
          */
         double[][] myArray = data.getData();
 
-        //Cast the array values to INTEGER
-        //Convert double array to int array
-        /**
-         * Mutator method to convert double array to int array
-         *
-         * @param newArray
-         *
-         */
-        int[][] intArray = new int[myArray.length][];
-        //outer loop for rows
-        for (int i = 0; i < myArray.length; i++) {
-            //inner loop for columns
-            for (int j = 0; j < myArray[i].length; j++) {
-                //Cast the double value to an int value
-                intArray[i][j] = (int) myArray[i][j];
-                //Print out array elements by row, with newline at the end of each inner loop
-                System.out.print(myArray[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
-        System.out.println(" ");
-
-
         /*
          //Print out the resultsArray contents
          //outer loop for rows
@@ -91,31 +68,42 @@ public class Analyst {
         store.setData(myArray);
 
         //Bubble sort trail run
-    //int[] numbers = {5, 188, 14, 171, 56, 9000, 1, 12};
-    //Storage.bubbleSort2(numbers);
-    //Check store object contents
-    //store.printArray();
-    /**
-     * Display the pre-processing image
-     */
-    //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
-    //new Display("Original Image", store.getData(0, 0, 299, 299));
-    /**
-     * Image processing
-     */
-    //PROCESSING IS DONE HERE
-    /**
-     * Display the post-processing image
-     */
-    //new Display("Processed Image", store.getData(0, 0, 299, 299));
-}
+        //int[] mynumbers = {5, 188, 14, 171, 56, 9000, 1, 12};
+        //Sorting.bubbleSort2(mynumbers);
+        
+        
+        //Check store object contents
+        //store.printArray();
+        
+        /**
+         * Display the pre-processing image
+         */
+        //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
+        //new Display("Original Image", store.getData(0, 0, 299, 299));
+        
+        /**
+         * Image processing
+         */
+        //PROCESSING IS DONE HERE
+        int mya = (int)(200.0 + 203)/2;
+        System.out.println("int mya is now: " + Math.round(mya));
+        
+        double mya2 = (200.0 + 203)/2;
+        System.out.println("int mya2 is now: " + Math.round(mya2));
+        
+        /**
+         * Display the post-processing image to visually check on impact of 
+         * image processing tasks
+         */
+        //new Display("Processed Image", store.getData(0, 0, 299, 299));
+        
+    }
 
-/**
- *
- * @param args the command line arguments
- */
-
-public static void main (String args[]) {
-		new Analyst ();
-	}
+    /**
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        new Analyst();
+    }
 }
