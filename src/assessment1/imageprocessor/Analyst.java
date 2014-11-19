@@ -41,6 +41,7 @@ public class Analyst {
          * Instantiate new Storage object called store
          */
         Storage store = new Storage();
+        Storage store2 = new Storage();
         DataReader data = new DataReader();
 
         //Check store object contents
@@ -49,6 +50,10 @@ public class Analyst {
          * Populate the Storage object (array) with image data
          */
         double[][] myArray = data.getData();
+        
+        // NEED TO CONVERT DOUBLE ARRAY TO INT ARRAY
+        // IMAGES ONLY USE INTEGER VALUES????
+        // APPLY CHANGES TO METHODS AS WELL, WHERE NEEDED
 
         /*
          //Print out the resultsArray contents
@@ -79,23 +84,33 @@ public class Analyst {
          * Display the pre-processing image
          */
         //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
-        //new Display("Original Image", store.getData(0, 0, 299, 299));
+        Display a = new Display("Original Image", store.getData(0, 0, 299, 299));
         
         /**
          * Image processing
          */
         //PROCESSING IS DONE HERE
-        int mya = (int)(200.0 + 203)/2;
-        System.out.println("int mya is now: " + Math.round(mya));
+        //int mya = (int)(200.0 + 203)/2;
+        //System.out.println("int mya is now: " + Math.round(mya));
         
-        double mya2 = (200.0 + 203)/2;
-        System.out.println("int mya2 is now: " + Math.round(mya2));
+        //double mya2 = (200.0 + 203)/2;
+        //System.out.println("int mya2 is now: " + Math.round(mya2));
+        
+        //Instantiate new array to store median values and define number of rows
+        double[][] medianArray = new double[myArray.length-1][];
+        
+        //Call method to generate median processing and cast array to int
+        medianArray = Processing.getMedianArray(myArray,1,"Conservative");
+        //copy values from data to store
+        //store2.setData(medianArray);
+        //int medianArray[][] =Processing.getMedianArray(newArray,1,"Conservative");
+        
         
         /**
          * Display the post-processing image to visually check on impact of 
          * image processing tasks
          */
-        //new Display("Processed Image", store.getData(0, 0, 299, 299));
+        Display b = new Display("Processed Image", store2.getData(0, 0, 298, 298));
         
     }
 
