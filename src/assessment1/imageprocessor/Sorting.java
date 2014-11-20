@@ -33,15 +33,16 @@ public class Sorting {
      * long as there were any exchanges. If the array is already sorted, this
      * sort will stop after only one pass. From
      * http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html
+     * Modified to accept array of doubles, instead of integers
      */
-    public static void bubbleSort2(int[] x) {
+    public static void bubbleSort(double[] x) {
         boolean doMore = true;
         while (doMore) {
             doMore = false;  // assume this is last pass over array
             for (int i = 0; i < x.length - 1; i++) {
                 if (x[i] > x[i + 1]) {
                     // exchange elements
-                    int temp = x[i];
+                    double temp = x[i];
                     x[i] = x[i + 1];
                     x[i + 1] = temp;
                     doMore = true;  // after an exchange, must look again 
@@ -49,9 +50,9 @@ public class Sorting {
             }
         }
         //Test the bubble sort. Print out the results
-        for (int i = 0; i < x.length; i++) {
-            System.out.println(x[i]);
-        }
+        //for (int i = 0; i < x.length; i++) {
+        //    System.out.println(x[i]);
+        //}
     }
     
     

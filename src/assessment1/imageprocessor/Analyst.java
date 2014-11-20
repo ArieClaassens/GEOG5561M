@@ -83,7 +83,7 @@ public class Analyst {
         /**
          * Display the pre-processing image
          */
-        //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS
+        //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
         Display a = new Display("Original Image", store.getData(0, 0, 299, 299));
         
         /**
@@ -102,7 +102,8 @@ public class Analyst {
         //Call method to generate median processing and cast array to int
         medianArray = Processing.getMedianArray(myArray,1,"Conservative");
         //copy values from data to store
-        //store2.setData(medianArray);
+        //Array is smaller than store array dimensions, so following doesnt work:
+        store2.setData(medianArray);
         //int medianArray[][] =Processing.getMedianArray(newArray,1,"Conservative");
         
         
@@ -110,7 +111,8 @@ public class Analyst {
          * Display the post-processing image to visually check on impact of 
          * image processing tasks
          */
-        Display b = new Display("Processed Image", store2.getData(0, 0, 298, 298));
+        //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
+        Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
         
     }
 

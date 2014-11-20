@@ -32,7 +32,7 @@ public class Storage {
     /*
      * Mutator method to populate array with data.
      * Returns nothing because we are modifying the object and not a reference to it.
-     * @param newData   The placeholder variable used to modify the data[][] array
+     * @param newData  The placeholder variable used to modify the data[][] array
      */
     void setData(double[][] newData) {
         //outer loop for rows
