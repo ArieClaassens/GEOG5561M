@@ -10,7 +10,8 @@ package imageprocessor;
 /**
  * Class: Analyst
  * This class provides a basic GIS image processing application. 
- * A source image is manipulated to produce XXXXXXXXXX
+ * A source image is manipulated to produce an image generated from the median
+ * values of each cell, using diagonal neighbors with a radius of 1.
  *
  * @author Student 200825599:
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
@@ -27,16 +28,10 @@ public class Analyst {
         Storage store2 = new Storage();
         DataReader data = new DataReader();
 
-        //Check store object contents
-        //store.printArray();
         /**
          * Populate the Storage object (array) with image data
          */
         double[][] myArray = data.getData();
-        
-        // NEED TO CONVERT DOUBLE ARRAY TO INT ARRAY
-        // IMAGES ONLY USE INTEGER VALUES????
-        // APPLY CHANGES TO METHODS AS WELL, WHERE NEEDED
 
         //copy values from data to store
         store.setData(myArray);
@@ -65,8 +60,8 @@ public class Analyst {
          * image processing tasks
          */
         //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
-        Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
-        
+        //Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
+        Display b = new Display("Processed Image", store2.getData(0, 0, 298, 298));
     }
 
     /**

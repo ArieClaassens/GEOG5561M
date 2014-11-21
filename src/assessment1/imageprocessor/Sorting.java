@@ -8,12 +8,15 @@
 package imageprocessor;
 
 /**
- * This class provides the sorting methods required by the GIS application.
+ * Class: Sorting This class provides the sorting methods required by the GIS
+ * application.
+ *
  * @author Student 200825599:
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  * @version 1.0
  */
 public class Sorting {
+
     /**
      * Bubblesort Method
      *
@@ -21,10 +24,12 @@ public class Sorting {
      *
      * This version of bubble sort continues making passes over the array as
      * long as there were any exchanges. If the array is already sorted, this
-     * sort will stop after only one pass. From
-     * http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html
-     * Modified to accept array of doubles, instead of integers
+     * sort will stop after only one pass.
      */
+    //Code adapted from
+    // http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html
+    // Modified to accept array of doubles, instead of integers.
+
     public static void bubbleSort(double[] x) {
         boolean doMore = true;
         while (doMore) {
@@ -44,6 +49,4 @@ public class Sorting {
         //    System.out.println(x[i]);
         //}
     }
-    
-    
 }
