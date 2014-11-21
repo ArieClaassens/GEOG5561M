@@ -3,18 +3,7 @@
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Please view readme.txt
  */
 package imageprocessor;
 
@@ -24,6 +13,7 @@ package imageprocessor;
  *
  * @author Student 200825599:
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.0
  */
 /**
  *
@@ -41,7 +31,7 @@ package imageprocessor;
  * //Mean filtering is an image processing methodology for removing high
  * frequency noise from images. Pseudo-code: generate a new array of the same(?)
  * dimension as the source array. How are we to handle boundaries? Lose 1 cell
- * in each direction (top, bottom, left & right) and know that we're working
+ * in each direction (top, bottom, left and right) and know that we're working
  * with valid data. See chapter 2, Looping through arrays. ONLY process cells
  * that can have complete processing (Suitable for image processing), p20 of my
  * notes.
@@ -85,11 +75,11 @@ package imageprocessor;
  * produce more accurate values. Take note that Java 6 has an issue with
  * Math.Round(), implementing it as a floor and not ceiling calculation. See
  * http://stackoverflow.com/questions/9902968/why-does-math-round0-49999999999999994-return-1?lq=1
- * position of median element => [((newArray.length)/2)] +
- * [((newArray.length)/2)+1] (Middle of 4 is 2 & 3)
+ * position of median element is [((newArray.length)/2)] +
+ * [((newArray.length)/2)+1] (Middle of 4 is 2 and 3)
  *
  * Mean: Bubble sort the 5 values and take the middle one position of median
- * element => ((newArray.length-1)/2)+1 (Array length -1, divided by 2, plus 1)
+ * element is ((newArray.length-1)/2)+1 (Array length -1, divided by 2, plus 1)
  * //
  *
  * Assign the new, median, value to our tempArray and repeat the process untill
@@ -192,9 +182,10 @@ public class Processing {
     }
 
     /**
-     * This method computes the median of the values in the input array. From
-     * http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java
-     * Adapted to use doubles and less variables
+     * This method computes the median of the values in the input array. 
+     * See http://www.calculatorsoup.com/calculators/statistics/descriptivestatistics.php
+     * Adapted from http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java
+     * to use doubles and less variables
      *
      * @param arr - an array of doubles
      * @return median - the median of the input array
