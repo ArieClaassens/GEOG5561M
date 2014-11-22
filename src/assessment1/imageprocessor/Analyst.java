@@ -63,7 +63,7 @@ public class Analyst {
         double[][] medianArray = new double[myArray.length-1][];
         
         //Call method to generate median processing and cast array to int
-        medianArray = Processing.getMedianArray(myArray,1,"Conservative");
+        medianArray = Processing.getMedianArray(myArray,-3,"Mean");
         //copy values from data to store
         store2.setData(medianArray);
       
@@ -74,7 +74,7 @@ public class Analyst {
          */
         //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
         //Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
-        Display b = new Display("Processed Image", store2.getData(0, 0, 298, 298));
+        Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
     }
 
     /**
