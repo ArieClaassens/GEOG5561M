@@ -23,8 +23,7 @@ Application Overview:
 
 /**
  *
- * Implement Median Filtering with a Diagonal Neighbourhood, using a Bubble
- * Sort 
+ * Implement Median Filtering with a Diagonal Neighbourhood, using a Bubble Sort 
  * Median filtering
  * http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html
  * Diagonal Neighbourhood with radius 1

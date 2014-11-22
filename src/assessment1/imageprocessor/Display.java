@@ -2,8 +2,21 @@
  * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Please view readme.txt
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Please view readme.txt for copyright and app details
  */
 package imageprocessor;
 
@@ -16,13 +29,14 @@ import java.awt.event.WindowEvent;
 import java.awt.image.MemoryImageSource;
 
 /**
- * Class: Display This class provides a visual display method for the GIS image
+ * Class: Display.<br>
+ * This class provides a visual display method for the GIS image
  * processing application. It is used to generate a visual representation of the
  * array data supplied to the Display class.
  *
- * @author Arie Claassens:
- * <a href="http://www.arie.co.za/">http://www.arie.co.za/</a>
- * @version 1.0
+ * @author Student 200825599 
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.1
  */
 // The following code was altered from that at http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/Display.java
 // Code formatting changes were applied to reduce the file size and improve readability in NetBeans

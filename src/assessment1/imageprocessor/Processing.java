@@ -2,34 +2,53 @@
  * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Please view readme.txt
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Please view readme.txt for copyright and app details
  */
 package imageprocessor;
 
 /**
- * Class: Processing This class provides the image processing methods required
- * by the GIS application
+ * Class: Processing.<br>
+ * This class provides the image processing methods required by the GIS application.<br>
+ * The processing method applies median filtering with a specific radius, applying a 
+ * bubble sort to the cell values array prior to identification of the median. Online references:
+ * <ul>
+ * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html" target="_blank">Median filtering</a></li>
+ * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/conservative.html" target="_blank">Conservative</a> and <a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/mean.html" target="_blank">Mean</a> median calculation algorithms</li> 
+ * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/neighbourhoods.html" target="_blank">Diagonal neighbor method</a>.</li>
+ * </ul>
  *
- * @author Student 200825599:
+ *
+ * @author Student 200825599 
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  * @version 1.0
  */
 public class Processing {
 
-    //Define our mutator method to generate an array of median values
     /**
      * This mutator method implements Median Filtering, with diagonal neighbors
      * at a radius of 1 cell, of the image band supplied. Describe the median
-     * filtering process. Include HTML image tag to include image or use HTML
-     * table to illustrate. This returned array is smaller than the source array
-     * by two rows and two columns.
-     *
-     * @param srcArray : array of integer values representing the image band
-     * @param radius : integer stipulating the median filter processing radius
-     * @param calcMethod : string stipulating the calculation option, i.e.
+     * filtering process. This returned array is smaller than the source array
+     * by 2 x radius for both the rows and columns to account for the boundary issue.
+     * 
+     * @param srcArray array of integer values representing the image band
+     * @param radius integer stipulating the median filter processing radius
+     * @param calcMethod string stipulating the calculation option, i.e.
      * Conservative or Mean
-     * @return medianArray : array of integer values representing the calculated
+     * @return medianArray array of integer values representing the calculated
      * median values.
      */
     static double[][] getMedianArray(double srcArray[][], int radius, String calcMethod) {
@@ -42,11 +61,17 @@ public class Processing {
         double medianArray[][] = new double[srcArray.length - radius * 2][srcArray.length - radius * 2];
 
         //outer loop for rows
-        //Instead of looping from 0 to arr.length-1, we loop from 1 to 
-        //arr.length-radius
-        for (int i = 1; i < srcArray.length - radius; i++) {
+        //Instead of looping from 0 to arr.length-1, we loop from radius to 
+        //arr.length-(1+radius) to ensure that we start within the boundaries
+        //Start at radius because radius+1 provides the first valid point to 
+        //process, but the array index starts at 0, thus radius+1-1 = radius
+        for (int i = radius; i < srcArray.length - (1+radius); i++) {
             //inner loop for columns; also from the 2nd column (1) to the arr[i].length-radius column
-            for (int j = 1; j < srcArray[i].length - radius; j++) {
+            for (int j = radius; j < srcArray[i].length - 1 - radius; j++) {
+                
+                //Loop for each cell to process.
+                //Repeat the loop radius times, e.g. r = 3, repeat 3 times
+                
 
                 //instantiate method variables that will store diagonal neighbour 
                 //and target cell values. Define as int as images store values in int
@@ -103,16 +128,16 @@ public class Processing {
     }
 
     /**
-     * This method computes the median of the values in the input array. 
+     * This method computes the median of the values in the input array.<br> 
      * Adapted from
-     * http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java
-     * to use doubles instead of integers and with less variables than the original
-     * script
+     * <a href="http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java" target="_blank">
+     * http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java</a>
+     * to use doubles instead of integers and utilize less variables.
      *
      * @param arr - an array of doubles
      * @return median - the median of the input array
      */
-    public static double calculateMedian(double[] arr) {
+    static double calculateMedian(double[] arr) {
         // Sort our array
         Sorting.bubbleSort(arr);
 
