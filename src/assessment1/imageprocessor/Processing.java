@@ -59,13 +59,30 @@ public class Processing {
      * @return medianArray array of integer values representing the calculated
      * median values.
      */
-    static double[][] getMedianArray(double srcArray[][], int myradius, String calcMethod) {
-        
-        //CONVERT RADIUS TO ABSOLUTE VALUE
-        int radius = Math.abs(myradius);
+    static double[][] getMedianArray(double srcArray[][], int myRadius, String calcMethod) {
 
-        //NOW CHECK THAT RADIUS DOESNT EXCEED SENSIBLE LIMITS, LIKE 50% OF ARRAY SIZE...
-        
+        /**
+         * @todo Add input validation to check user input when expanding the
+         * application to accept user input via GUI. GUI must also limit input
+         * to predefined options in order to limit the possibility for malicious
+         * input.
+         */
+        //Define the maximum value for the radius to control user input
+        int maxRadius = 10;
+
+        //Convert radius to an absolute value to cater for negative values submitted 
+        //by users.
+        int radius = Math.abs(myRadius);
+
+        /**
+         * Check radius size to constrain user input to useful ranges.
+         */
+        if ((radius > maxRadius) || (radius < 1)) {
+            System.out.println("Your RADIUS is too large or too small!");
+            System.out.println("Try an integer value larger than 0 and smaller than " + maxRadius + "% of the image width");
+            System.exit(1);
+        }
+
         //Instantiate our new array of median values, reducing it by the amount 
         //of rows we're losing due to the boundary issue
         //This assumes that we are dealing with a square array.
@@ -85,50 +102,27 @@ public class Processing {
             for (int j = radius; j < medianArray[i].length - (radius + 1); j++) {
 
                 //Loop for each cell to process.
-                //Repeat the loop radius times, e.g. r = 3, repeat 3 times, 
-                //decrementing each time so that we work the neighboring cells 
-                //from the inside outwards
+                //Repeat the loop radius times, e.g. r = 3, repeat 3 times
                 /**
                  * Instantiate the neighbors array to store the values of
-                 * neighbors. Exclude the focus cell's value if conservative
+                 * neighbors. Exclude the focus cell value if conservative
                  * algorithm or an invalid option was specified, otherwise the
                  * if/else if/else ladder lets us include the focus cell value
                  * if the mean algorithm was specified
                  */
-
                 //2D array to store the rows and columns of neighbour data before
                 //we turn it into a 1D array and bubble sort it.
                 double[][] neighbors = new double[radius][4];
-                
-                //Resize the array if required by the median algorithm
-                //IS THIS STILL NEEDED?!!!!!!
-                /*
-                if (calcMethod.equalsIgnoreCase("mean")) {
-                    //expand the array by 1 to cater for the focus cell's value
-                    double[] resizeArray = new double[neighbors.length + 1];
-                    System.arraycopy(neighbors, 0, resizeArray, 0, neighbors.length);
-                    //change neighbors array to the upsized newArray's dimensions and data
-                    neighbors = resizeArray;
-                } 
-                */
-                
+
                 //Instantiate label for this cell's value
                 double thiscell = 0;
                 thiscell = srcArray[i][j];
 
-                //Instantiate an arraylist to store our cell values
-                //Adapted from http://stackoverflow.com/questions/5061721/how-can-i-dynamically-add-items-to-a-java-array and
-                //http://stackoverflow.com/questions/3740088/assign-an-arraylist-to-an-array-in-java
-                //to accept doubles
-                //ArrayList<Double> neighboursList = new ArrayList<Double>();
-                //String neighbourList = "{";
-
-                //Now populate the array with the neighbor cells' values.
                 for (int k = 1; k <= radius; k++) {
 
                     //instantiate method variables that will store diagonal neighbour 
-                    //and target cell values. Define as int as images store values in int
-                    //Ensure that variables are cleaned up in each iteration
+                    //and target cell values.
+                    //Ensures that these method variables are cleaned up in each iteration
                     double leftup = 0;
                     double rightup = 0;
                     double leftdown = 0;
@@ -141,63 +135,34 @@ public class Processing {
                     rightdown = srcArray[i + k][j + k];     //k row down and k column right. Both positive values, relative to current position
 
                     //Add the cell values to the array
-                    neighbors[k-1][0] = leftup;
-                    neighbors[k-1][1] = rightup;
-                    neighbors[k-1][2] = leftdown;
-                    neighbors[k-1][3] = rightdown;                   
-                    
+                    neighbors[k - 1][0] = leftup;
+                    neighbors[k - 1][1] = rightup;
+                    neighbors[k - 1][2] = leftdown;
+                    neighbors[k - 1][3] = rightdown;
+
                 }
                 //End per cell radius-based loop
 
-                 //Convert the 2D array into a 1D array so that we can bubble sort it and get the median
+                //Convert the 2D array into a 1D array so that we can bubble sort
+                //it and calculate the median of the cell values
                 double[] neighbors1D = new double[radius * 4];
-                //resize if we're using the mean algorithm
+                neighbors1D = Storage.get1DArray(neighbors);
+
+                //Expand neighbors1D array if we're using the mean algorithm
                 if (calcMethod.equalsIgnoreCase("mean")) {
                     //expand the array by 1 to cater for the focus cell's value
                     double[] resizeArray = new double[neighbors1D.length + 1];
                     System.arraycopy(neighbors1D, 0, resizeArray, 0, neighbors1D.length);
                     //change neighbors array to the upsized newArray's dimensions and data
                     neighbors1D = resizeArray;
-                } 
-                
-                
-                neighbors1D = Storage.get1DArray(neighbors);
-                
-                /*
-                for (int l = 0; l < neighbors1D.length; l++) {
-                //print the columnar data on one line
-                System.out.print(neighbors1D[l] + " ");
-                }
-                System.out.println("And if we're mean?");
-                */
-                
-                //If using mean algorithm, add the focus cell's value to the array
-                if (calcMethod.equalsIgnoreCase("mean")) {
-                    neighbors1D[neighbors1D.length-1] = thiscell;
+                    //Add the focus cell's value to the array
+                    neighbors1D[neighbors1D.length - 1] = thiscell;
                 }
 
-                /*
-                for (int l = 0; l < neighbors1D.length; l++) {
-                //print the columnar data on one line
-                System.out.print(neighbors1D[l] + " ");
-                }
-                */  
-
-                //System.exit(0);
-                
                 //Instantiate variable to hold median value.
                 double tmpMedian = 0.0;
-                
 
-               //Calculate the median value
-                //Calculate the median value using the median calculation method
-                // selected, i.e. Conservative or Median, with the former excluding
-                // the current cell value in the median calculation and the latter
-                // including the current cell value from the median calculation
-                // Utilise an if/elseif ladder to cater for the limited set of 
-                // calculation choices and to enforce a default option in the event
-                // of invalid input for the calculation method.
-                
+                //Calculate the median value using the calculateMedian method
                 tmpMedian = calculateMedian(neighbors1D);
                 //System.out.println("tmpMedian --> " + tmpMedian);
 
@@ -244,5 +209,4 @@ public class Processing {
         //}
         return median;
     }
-
 }

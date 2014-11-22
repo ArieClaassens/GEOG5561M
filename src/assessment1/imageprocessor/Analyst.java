@@ -35,7 +35,7 @@ public class Analyst {
 
     public Analyst() {
         /**
-         * Instantiate new Storage object called store
+         * Instantiate new Storage objects to store the original and final images
          */
         Storage store = new Storage();
         Storage store2 = new Storage();
@@ -53,7 +53,7 @@ public class Analyst {
          * Display the pre-processing image
          */
         //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
-        Display a = new Display("Original Image", store.getData(0, 0, 299, 299));
+        Display a = new Display("Original Image", store.getData(0, 0, 299, 299), 200, 250);
         
         /**
          * Image processing
@@ -63,7 +63,7 @@ public class Analyst {
         double[][] medianArray = new double[myArray.length-1][];
         
         //Call method to generate median processing and cast array to int
-        medianArray = Processing.getMedianArray(myArray,-3,"Mean");
+        medianArray = Processing.getMedianArray(myArray,-10,"Mean");
         //copy values from data to store
         store2.setData(medianArray);
       
@@ -74,7 +74,7 @@ public class Analyst {
          */
         //CHANGE THIS TO DYNAMIC RANGE, DEFINED AUTOMATICALLY BY ARRAY DIMENSIONS!!!!!
         //Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
-        Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length));
+        Display b = new Display("Processed Image", store2.getData(0, 0, medianArray.length, medianArray.length), 600, 250);
     }
 
     /**

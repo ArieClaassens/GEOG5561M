@@ -40,11 +40,13 @@ import java.awt.image.MemoryImageSource;
  */
 // The following code was altered from that at http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/Display.java
 // Code formatting changes were applied to reduce the file size and improve readability in NetBeans
+//Parameters were added to allow specification of frame position and minor aesthetic
+//tweaks were added using the official Java Frame Class documentation.
 public class Display extends Frame {
 
     Image image = null;
 
-    public Display(String title, double[][] dataIn) {
+    public Display(String title, double[][] dataIn, int locationX, int locationY) {
 
         double[][] temp2DArray = rerangeArray(0, 255, dataIn);
         double[] temp1DArray = get1DArray(temp2DArray);
@@ -52,6 +54,10 @@ public class Display extends Frame {
         image = getImage(temp1DIntArray, dataIn[0].length, dataIn.length);
         this.setSize(dataIn[0].length, dataIn.length);
         this.setTitle(title);
+        //Set background, disable resizing and set position
+        this.setBackground(Color.blue);
+        this.setResizable(false);
+        this.setLocation(locationX, locationY);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
