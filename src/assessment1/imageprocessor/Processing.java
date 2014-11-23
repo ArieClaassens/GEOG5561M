@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
- * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
+ * University of Leeds, Leeds, West Yorkshire, UK.
  * All rights reserved.
  * 
  * Please view readme.txt
@@ -24,7 +24,7 @@ public class Processing {
      * issue, as only cells that can be fully processed are analysed.
      *
      * @param srcArray Array with image data
-     * @param radius Integer limiting the processing radius
+     * @param myRadius Integer limiting the processing radius
      * @param calcMethod String stipulating the calculation algorithm, i.e.
      * Conservative or Mean
      * @return medianArray Array of median values.

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
- * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
+ * University of Leeds, Leeds, West Yorkshire, UK.
  * All rights reserved.
  * 
  * Please view readme.txt
@@ -17,8 +17,7 @@ import java.awt.image.MemoryImageSource;
 
 /**
  * Class: Display.<br>
- * This class provides a visual display method for the image processing application
- * by generating a visual representation of the supplied data.
+ * This class provides a visual display method for the image data
  *
  * @author Student 200825599 
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
