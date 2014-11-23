@@ -3,14 +3,14 @@
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
  * 
- * Please view readme.txt for full copyright and app details
+ * Please view readme.txt
  */
 package imageprocessor;
 
 /**
  * Class: DataReader.<br> 
- * This class provides an emulation of file input required to
- * supply the application with the data required for the image analysis.
+ * This class provides file input emulation, required to
+ * supply the data required for image analysis.
  *
  * @author Student 200825599 
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>

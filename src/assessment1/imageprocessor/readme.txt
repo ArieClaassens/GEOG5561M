@@ -1,6 +1,6 @@
 Copyright and Author Information:
 
-Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+Copyright (C) 2014 Student 200825599 gy13awc@leeds.ac.uk
 University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
 All rights reserved.
 
@@ -18,105 +18,22 @@ You should have received a copy of the GNU General Public License
 along with this program in the form of a file labelled gpl.txt.  
 If not, see <http://www.gnu.org/licenses/>.
 
-================================================================================
 Application Overview:
 
-/**
- *
- * Implement Median Filtering with a Diagonal Neighbourhood, using a Bubble Sort 
- * Median filtering
- * http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html
- * Diagonal Neighbourhood with radius 1
- * http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/neighbourhoods.html
- * 
- * Conservative Median Filter - central cell is excluded from calculations
- * http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/conservative.html
- * 
- * Conservative filtering is an image processing methodology for removing high
- * frequency noise from images. 
- * 
- * Mean Median Filter - central cell is usually included in calculations
- * http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/mean.html
+This application provides a mechanism to remove high frequency noise from an image
+ by accepting an array of values, representing a single band of image data, which 
+is then put through a filtering process where the median of each cell is 
+calculated and stored in a new array.
 
- * Mean filtering is an image processing methodology for removing high
- * frequency noise from images. Pseudo-code: generate a new array of the same(?)
- * dimension as the source array. How are we to handle boundaries? Lose 1 cell
- * in each direction (top, bottom, left and right) and know that we're working
- * with valid data. See chapter 2, Looping through arrays. ONLY process cells
- * that can have complete processing (Suitable for image processing), p20 of my
- * notes.
- *
- * This means that we will need to start our processing offset by the radius
- * distance from the start, so if radius is 1, we need to start 1 row down and 1
- * column right from [0][0]. The radius needs to be parameterised in this
- * processing method so that we can pass radii of varying sizes to analyze the
- * impact on the image. For higher marks too. Input validation: is this an int
- * and is it less than say 25% of image size? If not an int, but can be cast as
- * an int, e.g. byte/double/long/etc. convert it. If a string, set it to a
- * default of 1 and raise an error, or just catch the error and stop processing?
- *
- * We also need to parameterise the value calculations, providing either a
- * Conservative or Mean calculation option. This will also allow us to analyze
- * the impact on the image. For higher marks too. Use a switch to provide
- * options or if/else ladder? Only two options available, so if/else will be OK
- * and we can put in a default choice. 50% chance of choosing our default one.
- *
- * Set up an array loop that processes the supplied array: // Instantiate a new
- * array with method scope, of the dimension: tmpArray[srcArray.length-2][]
- * Start looping from srcArray[1][1] to
- * srcArray[srcArray.length-1][srcArray.length[srcArray.length-1]-1] This will
- * see us process cell data one row and one column away from the boundaries
- * across the whole process.
- *
- * Inside this loop, create a new loop/storage object that will collect the cell
- * values from the following relative positions: for position srcArray[i][j]:
- * srcArray[i-1][j-1] Up and Left srcArray[i-1][j+1] Up and Right
- * srcArray[i+1][j-1] Down and Left srcArray[i+1][j+1] Down and Right
- *
- * Calculate the MEDIAN value, depending on the calculation option selected:
- * See http://www.calculatorsoup.com/calculators/statistics/descriptivestatistics.php
- *
- * //See
- * http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java
- * //calculates the median wrong Median value is the middle number in a sorted
- * list, so for
- *
- * Conservative: Bubble sort the 4 values, take the middle two, add them and
- * divide by two to find their middle value Use the Math.Round() function to
- * produce more accurate values. Take note that Java 6 has an issue with
- * Math.Round(), implementing it as a floor and not ceiling calculation. See
- * http://stackoverflow.com/questions/9902968/why-does-math-round0-49999999999999994-return-1?lq=1
- * position of median element is [((newArray.length)/2)] +
- * [((newArray.length)/2)+1] (Middle of 4 is 2 and 3)
- *
- * Mean: Bubble sort the 5 values and take the middle one position of median
- * element is ((newArray.length-1)/2)+1 (Array length -1, divided by 2, plus 1)
- * //
- *
- * Assign the new, median, value to our tempArray and repeat the process untill
- * we reach the last row and column available for processing.
- */
+The median calculation process utilises diagonal neighbourhood calculation, with
+the number of neighbours defined by the user-supplied radius parameter and the 
+median calculation algorithm defined by the user-supplied algorithm choice.
 
+Only cells that can be fully processed are included in the analysis.
 
+For background information, please visit the following sites:
 
-
-
-
-
-
-
-================================================================================
-Next steps:
-
-Add input validation to check user input when expanding the
-application to accept user input via a GUI. The GUI must also limit input
-to predefined options in order to limit the possibility for malicious input.
-
-
-================================================================================
-
-
-================================================================================
-
-
-================================================================================
+http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html
+http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/neighbourhoods.html
+http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/conservative.html
+http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/mean.html

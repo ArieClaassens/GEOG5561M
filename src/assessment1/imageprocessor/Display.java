@@ -3,7 +3,7 @@
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
  * 
- * Please view readme.txt for full copyright and app details
+ * Please view readme.txt
  */
 package imageprocessor;
 
@@ -17,9 +17,8 @@ import java.awt.image.MemoryImageSource;
 
 /**
  * Class: Display.<br>
- * This class provides a visual display method for the GIS image
- * processing application. It is used to generate a visual representation of the
- * array data supplied to the Display class.
+ * This class provides a visual display method for the image processing application
+ * by generating a visual representation of the supplied data.
  *
  * @author Student 200825599 
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
@@ -27,8 +26,8 @@ import java.awt.image.MemoryImageSource;
  */
 // The following code was altered from that at http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/Display.java
 // Code formatting changes were applied to reduce the file size and improve readability in NetBeans
-//Parameters were added to allow specification of frame position and minor aesthetic
-//tweaks were added using the official Java Frame Class documentation.
+// Parameters were added to allow specification of frame position and minor aesthetic
+// tweaks were added using the official Java Frame Class documentation.
 public class Display extends Frame {
 
     Image image = null;

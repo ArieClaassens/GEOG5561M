@@ -3,7 +3,7 @@
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
  * 
- * Please view readme.txt for full copyright and app details
+ * Please view readme.txt
  */
 package imageprocessor;
 
