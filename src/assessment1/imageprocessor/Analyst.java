@@ -3,20 +3,7 @@
  * University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
  * All rights reserved.
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Please view readme.txt for copyright and app details
+ * Please view readme.txt for full copyright and app details
  */
 package imageprocessor;
 
@@ -24,7 +11,9 @@ package imageprocessor;
  * Class: Analyst.<br>
  * This class provides a basic GIS image processing application. 
  * A source image is manipulated to produce an image generated from the median
- * values of each cell, using diagonal neighbors with a radius of 1.
+ * values of each cell, using diagonal neighbors with a radius ranging from 1 to 
+ * a predefined maximum. The maximum limit may be adjusted in the Processing 
+ * class file by increasing or decreasing the maxRadius value.
  *
  * @author Student 200825599 
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
@@ -35,14 +24,16 @@ public class Analyst {
 
     public Analyst() {
         /**
-         * Instantiate new Storage objects to store the original and final images
+         * Instantiate two Storage objects, used to store the original and final
+         * images, and a DataReader object through which to obtain image data.
+         * 
          */
         Storage store = new Storage();
         Storage store2 = new Storage();
         DataReader data = new DataReader();
 
         /**
-         * Populate the Storage object (array) with image data
+         * Instantiate and populate myArray with the image data.
          */
         double[][] myArray = data.getData();
 
