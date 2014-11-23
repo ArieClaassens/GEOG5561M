@@ -21,10 +21,7 @@ public class Sorting {
      * Bubblesort Method.<br>
      * Adapted from <a href="http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html" target="_blank">
      * http://www.fredosaurus.com/notes-java/algorithms/sorting/sort-bubble.html</a>
-     * to accept array of doubles, instead of integers. Original can be found under the heading "Bubble Sort -- stop when no exchanges, shorter range each time".<br>
-     * This version of bubble sort continues making passes over the array as
-     * long as there were any exchanges. If the array is already sorted, this
-     * sort will stop after only one pass.
+     * to accept array of doubles, instead of integers.
      *
      * @param x Integer array of values to sort
      */
@@ -32,20 +29,15 @@ public class Sorting {
     public static void bubbleSort(double[] x) {
         boolean doMore = true;
         while (doMore) {
-            doMore = false;  // assume this is last pass over array
+            doMore = false;
             for (int i = 0; i < x.length - 1; i++) {
                 if (x[i] > x[i + 1]) {
-                    // exchange elements
                     double temp = x[i];
                     x[i] = x[i + 1];
                     x[i + 1] = temp;
-                    doMore = true;  // after an exchange, must look again 
+                    doMore = true;
                 }
             }
         }
-        //Test the bubble sort. Print out the results
-        //for (int i = 0; i < x.length; i++) {
-        //    System.out.println(x[i]);
-        //}
     }
 }

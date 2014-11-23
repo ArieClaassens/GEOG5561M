@@ -9,22 +9,17 @@ package imageprocessor;
 
 /**
  * Class: Processing.<br>
- * This class provides the image processing methods required by the GIS
- * application.<br>
- * The processing method applies median filtering with a specific radius,
- * applying a bubble sort to the cell values array prior to identification of
- * the median. Online references:
- * <ul>
- * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html" target="_blank">Median
- * filtering</a></li>
- * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/conservative.html" target="_blank">Conservative</a>
+ * This class provides the image processing methods used by the application.<br>
+ * The method applies median filtering with a user-supplied radius, bubble
+ * sorting the cell values before finding the median. References: <br>
+ * <a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/median.html" target="_blank">Median
+ * filtering</a> <br>
+ * <a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/conservative.html" target="_blank">Conservative</a>
  * and
  * <a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/mean.html" target="_blank">Mean</a>
- * median calculation algorithms</li>
- * <li><a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/neighbourhoods.html" target="_blank">Diagonal
- * neighbor method</a>.</li>
- * </ul>
- *
+ * median calculation algorithms <br>
+ * <a href="http://www.geog.leeds.ac.uk/courses/other/programming/odl-core/assessment1/neighbourhoods.html" target="_blank">Diagonal
+ * neighbor method</a>.<br>
  *
  * @author Student 200825599
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
@@ -34,10 +29,9 @@ public class Processing {
 
     /**
      * This mutator method implements Median Filtering, with diagonal neighbors
-     * at a radius of 1 cell, of the image band supplied. Describe the median
-     * filtering process. This returned array is smaller than the source array
-     * by 2 x radius for both the rows and columns to account for the boundary
-     * issue.
+     * at a user-supplied radius. The returned array is smaller than the source
+     * array by 2 x radius for both rows and columns to account for the boundary
+     * issue, as only cells that can be fully processed are included.
      *
      * @param srcArray array of integer values representing the image band
      * @param radius integer stipulating the median filter processing radius
@@ -48,152 +42,111 @@ public class Processing {
      */
     static double[][] getMedianArray(double srcArray[][], int myRadius, String calcMethod) {
 
-        /**
-         * @todo Add input validation to check user input when expanding the
-         * application to accept user input via GUI. GUI must also limit input
-         * to predefined options in order to limit the possibility for malicious
-         * input.
-         */
-        //Define the maximum value for the radius to control user input
+        //User input sanitation:
+        //Define the maximum value for the radius
         int maxRadius = 10;
 
-        //Convert radius to an absolute value to cater for negative values submitted 
-        //by users.
+        //Convert radius to an absolute value
         int radius = Math.abs(myRadius);
 
-        /**
-         * Check radius size to constrain user input to useful ranges.
-         */
+        // Validate radius size to constrain user input to useful ranges.
         if ((radius > maxRadius) || (radius < 1)) {
-            System.out.println("Your RADIUS is too large or too small!");
-            System.out.println("Try an integer value larger than 0 and smaller than " + maxRadius + "% of the image width");
+            System.out.println("Your RADIUS value (" + radius + ") is invalid!");
+            System.out.println("Try an integer value, where 0 < radius <= " + maxRadius);
             System.exit(1);
         }
 
-        //Instantiate our new array of median values, reducing it by the amount 
-        //of rows we're losing due to the boundary issue
-        //This assumes that we are dealing with a square array.
-        //Additional functionality to test the existence and contents of each 
-        // cell will mitigate the risk of running into uncaught exceptions
+        //Instantiate array of median values, minus the rows lost to the
+        //boundary issue; assuming a square array.
         double medianArray[][] = new double[srcArray.length - (radius * 2)][srcArray.length - (radius * 2)];
 
-        //outer loop for rows
-        //Instead of looping from 0 to srcArray.length-1, we loop from radius to 
-        //medianArray.length to ensure that we start within the boundaries
         //Start at radius because radius+1 provides the first valid point to 
         //process, but the array index starts at 0, thus radius+1-1 = radius
-        //for (int i = radius; i < srcArray.length - (radius + 1); i++) {
         for (int i = radius; i < medianArray.length; i++) {
-            //inner loop for columns; also from the 2nd column (1) to the arr[i].length-radius column
-            // for (int j = radius; j < srcArray[i].length - (radius + 1); j++) {
             for (int j = radius; j < medianArray[i].length - (radius + 1); j++) {
 
-                //Loop for each cell to process.
-                //Repeat the loop radius times, e.g. r = 3, repeat 3 times
-                /**
-                 * Instantiate the neighbors array to store the values of
-                 * neighbors. Exclude the focus cell value if conservative
-                 * algorithm or an invalid option was specified, otherwise the
-                 * if/else if/else ladder lets us include the focus cell value
-                 * if the mean algorithm was specified
-                 */
                 //2D array to store the rows and columns of neighbour data before
-                //we turn it into a 1D array and bubble sort it.
+                //conversion into a 1D array.
                 double[][] neighbors = new double[radius][4];
 
                 //Instantiate label for this cell's value
                 double thiscell = 0;
                 thiscell = srcArray[i][j];
 
+                //Loop for each cell to process, repeating radius, e.g. 3, times
                 for (int k = 1; k <= radius; k++) {
 
-                    //instantiate method variables that will store diagonal neighbour 
-                    //and target cell values.
-                    //Ensures that these method variables are cleaned up in each iteration
+                    //instantiate method variables to store neighbour and target cell values.
                     double leftup = 0;
                     double rightup = 0;
                     double leftdown = 0;
                     double rightdown = 0;
 
                     //Populate the variables with the relevant cell data
-                    leftup = srcArray[i - k][j - k];        //k row up and k column left. Both negative values, relative to current position
-                    rightup = srcArray[i - k][j + k];       //k row up and k column right. Negative row value and positive column value, relative to current position
-                    leftdown = srcArray[i + k][j - k];      //k row down and k column left. Positive row value and negatoive column value, relative to current position
-                    rightdown = srcArray[i + k][j + k];     //k row down and k column right. Both positive values, relative to current position
+                    leftup = srcArray[i - k][j - k];        //k row up and k column left.
+                    rightup = srcArray[i - k][j + k];       //k row up and k column right.
+                    leftdown = srcArray[i + k][j - k];      //k row down and k column left.
+                    rightdown = srcArray[i + k][j + k];     //k row down and k column right.
 
                     //Add the cell values to the array
                     neighbors[k - 1][0] = leftup;
                     neighbors[k - 1][1] = rightup;
                     neighbors[k - 1][2] = leftdown;
                     neighbors[k - 1][3] = rightdown;
-
                 }
-                //End per cell radius-based loop
 
-                //Convert the 2D array into a 1D array so that we can bubble sort
-                //it and calculate the median of the cell values
-                double[] neighbors1D = new double[radius * 4];
-                neighbors1D = Storage.get1DArray(neighbors);
+                //Create a 1D array from the 2D array
+                double[] neighbors1D = Storage.get1DArray(neighbors);
 
-                //Expand neighbors1D array if we're using the mean algorithm
+                //Expand neighbors1D array if we're using the mean algorithm to
+                //include the focus cell's value
                 if (calcMethod.equalsIgnoreCase("mean")) {
-                    //expand the array by 1 to cater for the focus cell's value
                     double[] resizeArray = new double[neighbors1D.length + 1];
                     System.arraycopy(neighbors1D, 0, resizeArray, 0, neighbors1D.length);
-                    //change neighbors array to the upsized newArray's dimensions and data
                     neighbors1D = resizeArray;
-                    //Add the focus cell's value to the array
                     neighbors1D[neighbors1D.length - 1] = thiscell;
                 }
 
-                //Instantiate variable to hold median value.
+                //Instantiate median value variable
                 double tmpMedian = 0.0;
 
-                //Calculate the median value using the calculateMedian method
+                //Calculate the median value
                 tmpMedian = calculateMedian(neighbors1D);
-                //System.out.println("tmpMedian --> " + tmpMedian);
 
-                //End of per cell processing loop
                 //Assign median value to new array
                 medianArray[i - 1][j - 1] = tmpMedian;
             }
         }
-        //Return the array of median values
         return medianArray;
     }
 
     /**
-     * This method computes the median of the values in the input array.<br>
+     * Method to compute the median of the array values.<br>
      * Adapted from
      * <a href="http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java" target="_blank">
      * http://pages.cs.wisc.edu/~cs302-5/resources/examples/MeanMedianMode_Methods.java</a>
-     * to use doubles instead of integers and utilize less variables.
+     * to use doubles and less variables.
      *
-     * @param arr - an array of doubles
-     * @return median - the median of the input array
+     * @param arr Array of doubles
+     * @return median Median of the array
      */
     static double calculateMedian(double[] arr) {
-        // Sort our array
+        // Sort the array
         Sorting.bubbleSort(arr);
 
-        double median = 0;
+        double median = 0.0;
 
-        // If our array's length is even, then we need to find the average of the two centered values
+        // If the array length is even,  we need to find the average of the two 
+        //centered values
         if (arr.length % 2 == 0) {
             int indexA = (arr.length - 1) / 2;
             int indexB = arr.length / 2;
-
             median = ((arr[indexA] + arr[indexB])) / 2;
-        } // Else if our array's length is odd, then we simply find the value at the center index
+        } // Else simply find the value at the center index
         else {
             int index = (arr.length - 1) / 2;
             median = arr[index];
         }
-
-        // Print the values of the sorted array
-        //for (double v : arr) {
-        //    System.out.println(v);
-        //}
         return median;
     }
 }

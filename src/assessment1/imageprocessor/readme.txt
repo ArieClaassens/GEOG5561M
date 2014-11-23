@@ -106,6 +106,11 @@ Application Overview:
 
 
 ================================================================================
+Next steps:
+
+Add input validation to check user input when expanding the
+application to accept user input via a GUI. The GUI must also limit input
+to predefined options in order to limit the possibility for malicious input.
 
 
 ================================================================================
