@@ -36,14 +36,20 @@ public class Storage {
      * Returns nothing because we are modifying the object and not a reference to it.
      * @param newData   The placeholder variable used to modify the data[][] array
      */
-    public void setData(double[][] newData) {
-        //outer loop for rows
-        for (int i = 0; i < newData.length; i++) {
-            //inner loop for columns
-            for (int j = 0; j < newData[i].length; j++) {
-                data[i][j] = newData[i][j];
-            }
-        }
+    /*
+     public void setData(double[][] newData) {
+     //outer loop for rows
+     for (int i = 0; i < newData.length; i++) {
+     //inner loop for columns
+     for (int j = 0; j < newData[i].length; j++) {
+     data[i][j] = newData[i][j];
+     }
+     }
+     }
+     */
+    //from practical notes - > http://www.geog.leeds.ac.uk/courses/other/programming/practicals/raster-framework/part5/2.html
+    public void setData(double[][] dataIn) {
+        data = dataIn;
     }
 
     /*
@@ -56,19 +62,25 @@ public class Storage {
      * @param endCol    integer specifying the end column for the method
      * @return myArray  2D array consisting of double primitive type data
      */
-    public double[][] getData(int startRow, int startCol, int endRow, int endCol) {
-        //calculate dimensions of the array to return
-        int myrows = endRow - startRow + 1;
-        int mycolumns = endCol - startCol + 1;
-        double[][] myArray = new double[myrows][mycolumns];
-        //outer loop for rows
-        for (int i = startRow; i <= endRow; i++) {
-            //inner loop for columns
-            for (int j = startCol; j <= endCol; j++) {
-                myArray[i][j] = data[i][j];
-            }
-        }
-        return myArray;
+    /*
+     public double[][] getData(int startRow, int startCol, int endRow, int endCol) {
+     //calculate dimensions of the array to return
+     int myrows = endRow - startRow + 1;
+     int mycolumns = endCol - startCol + 1;
+     double[][] myArray = new double[myrows][mycolumns];
+     //outer loop for rows
+     for (int i = startRow; i <= endRow; i++) {
+     //inner loop for columns
+     for (int j = startCol; j <= endCol; j++) {
+     myArray[i][j] = data[i][j];
+     }
+     }
+     return myArray;
+     }
+     */
+    //From Practical -> http://www.geog.leeds.ac.uk/courses/other/programming/practicals/raster-framework/part5/2.html
+    public double[][] getData() {
+        return data;
     }
 
     /*
@@ -146,6 +158,7 @@ public class Storage {
      * Method to calculate and return the minimum value in array
      * @return A double containing the minimum value found in the array
      */
+
     public double getMinimum() {
         //calculate the minimum value contained by the array
         //Set the minimum to use the first cell in the array as the initial value. 

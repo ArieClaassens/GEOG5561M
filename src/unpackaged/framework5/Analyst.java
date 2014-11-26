@@ -32,8 +32,15 @@ public class Analyst {
     public Analyst() {
         Storage store = new Storage();
         // Our Analyst code this practical will go here.
+        //Instantiate new IO object
         IO io = new IO();
+        //Populate store object with data from io object
         store.setData(io.readData());
+        
+        //Output data from store object via io writeData method
+        io.writeData(store.data);
+        
+        
     }
 
     public static void main(String args[]) {

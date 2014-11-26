@@ -17,9 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -30,7 +32,7 @@ import java.util.StringTokenizer;
  */
 public class IO {
 
-    public static double[][] readData() {
+    public double[][] readData() {
         // Our reading code will go here.
         //File f = new File("in.txt");
         File f = new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework5\\in.txt");
@@ -115,7 +117,7 @@ public class IO {
                 j++;
             }
         }
-        
+
         //TEST Print out 2D array
         //for (int i = 0; i < data.length; i++) {
         //    for (int j = 0; j < data[i].length; j++) {
@@ -124,12 +126,52 @@ public class IO {
         //    }
         //    System.out.println("");
         //}
-
         // return the full double[][] array rather than an empty one.
-        return new double[][]{};
+        return data;
     }
 
     public void writeData(double[][] dataIn) {
         // Our writing code will go here.
+        BufferedWriter bw = null;
+
+        try {
+            bw = new BufferedWriter(new FileWriter(new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework5\\out.txt")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String tempStr = "";
+
+        try {
+            for (int i = 0; i < dataIn.length; i++) {
+                for (int j = 0; j < dataIn[i].length; j++) {
+                    tempStr = String.valueOf(dataIn[i][j]);
+                    //System.out.print(tempStr + ", ");
+                    bw.write(tempStr + ", ");
+
+                }
+                //System.out.println("");
+                bw.newLine();
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bw.close();
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+        }
+
+        // Code to make a FileWriter (again, in a try-catch block).
+        // Code to wrap it in a BufferedWriter.
+        // Open a try block.
+        // Start of loops.
+        // Code to change the double to a String.
+        // Write the String to the file.
+        // End loops
+        // Close Buffer (and thus the FileWriter as well)
+        // Close try block.
     }
 }
