@@ -17,25 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * Class:   Analyst.java <br>
- * Version: 1.6 <br>
- * Date:    26 Nov 2014<br>
- * Overview:The Analyst class provides the framework for a basic GIS application utilized in the GEOG5561M course<br>
- * 
- * @author Arie Claassens <a href="mailto:arieclaassens@gmail.com">arieclaassens@gmail.com</a>
- * @version 1.6 - 24 Nov 2014
+ *
+ * @author Student 200825599:
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
  */
-
- public class Analyst {
-
-   public Analyst () {
-      Storage store = new Storage();
-      // Our Analyst code this practical will go here.
-      
+public class IO {
+     public double[][] readData() {
+      // Our reading code will go here.
+      return new double[][] {};
    }
 
-   public static void main (String args[]) {
-      new Analyst();
+   public void writeData(double[][] dataIn) {
+      // Our writing code will go here.
    }
-
-} 
+}

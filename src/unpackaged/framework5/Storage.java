@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2014 Arie Claassens <arieclaassens@gmail.com>
- * Johannesburg, South Africa
+ * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * University of Leeds, Leeds, West Yorkshire, UK.
  * All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
