@@ -36,7 +36,7 @@ public class Storage {
      * Returns nothing because we are modifying the object and not a reference to it.
      * @param newData   The placeholder variable used to modify the data[][] array
      */
-    void setData(double[][] newData) {
+    public void setData(double[][] newData) {
         //outer loop for rows
         for (int i = 0; i < newData.length; i++) {
             //inner loop for columns
@@ -56,7 +56,7 @@ public class Storage {
      * @param endCol    integer specifying the end column for the method
      * @return myArray  2D array consisting of double primitive type data
      */
-    double[][] getData(int startRow, int startCol, int endRow, int endCol) {
+    public double[][] getData(int startRow, int startCol, int endRow, int endCol) {
         //calculate dimensions of the array to return
         int myrows = endRow - startRow + 1;
         int mycolumns = endCol - startCol + 1;
@@ -79,7 +79,7 @@ public class Storage {
      * @param endRow    integer specifying the end row for the method
      * @param endCol    integer specifying the end column for the method
      */
-    void printData(int startRow, int startCol, int endRow, int endCol) {
+    public void printData(int startRow, int startCol, int endRow, int endCol) {
         //print out array (to verify cell contents)
         //outer loop for rows
         for (int i = startRow; i <= endRow; i++) {
@@ -96,7 +96,7 @@ public class Storage {
      * Mutator method to populate array with random data.
      * Accepts and returns nothing
      */
-    void setRandomData() {
+    public void setRandomData() {
         //outer loop for rows
         for (int i = 0; i < data.length; i++) {
             //inner loop for columns
@@ -110,7 +110,7 @@ public class Storage {
      * Method to print out the object (array) contents
      * Accepts and returns nothing
      */
-    void printArray() {
+    public void printArray() {
         //outer loop for rows
         for (int i = 0; i < data.length; i++) {
             //inner loop for columns
@@ -126,7 +126,7 @@ public class Storage {
      * Method to calculate and return the maximum value contained in the array
      * @return A double containing the maximum value found in the array
      */
-    double getMaximum() {
+    public double getMaximum() {
         //calculate the maximum value contained by the array
         //Set the maximum to a negative value in order to ensure that it does 
         //not exceed the potentially largest positive value produced by Math.random()
@@ -146,7 +146,7 @@ public class Storage {
      * Method to calculate and return the minimum value in array
      * @return A double containing the minimum value found in the array
      */
-    double getMinimum() {
+    public double getMinimum() {
         //calculate the minimum value contained by the array
         //Set the minimum to use the first cell in the array as the initial value. 
         //See http://www.geog.leeds.ac.uk/courses/other/programming/practicals/raster-framework/part3/Analyst.java
@@ -176,7 +176,7 @@ public class Storage {
     // numbers across a given range, that is, the minimum value matches a new minimum, 
     // the maximum a new maximum, and the rest of the data is spread between them, 
     // proportional to the values in the original dataset. 
-    double[][] getRerangedData(double newMinimum, double newMaximum) {
+    public double[][] getRerangedData(double newMinimum, double newMaximum) {
         // Set up double variables containing currentMaximum and currentMinimum
         double currentMinimum = this.getMinimum();
         double currentMaximum = this.getMaximum();
@@ -214,7 +214,7 @@ public class Storage {
      * @param 2D array of type double
      * @return 1D array of type double
      */
-    double[] get1DArray() {
+    public double[] get1DArray() {
         //create a reranged array
         double[][] reranged = getRerangedData(0.0, 255.0);
 
