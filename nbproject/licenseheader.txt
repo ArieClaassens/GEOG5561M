@@ -2,7 +2,7 @@
 ${licenseFirst}
 </#if>
 ${licensePrefix}Copyright (C) ${date?date?string("yyyy")} ${project.organization!user}
-${licensePrefix}University of Leeds, Leeds, West Yorkshire, UK. LS2 9JT
+${licensePrefix}University of Leeds, Leeds, West Yorkshire, UK.
 ${licensePrefix}All rights reserved.
 ${licensePrefix?replace(" +$", "", "r")}
 ${licensePrefix}This program is free software: you can redistribute it and/or modify
