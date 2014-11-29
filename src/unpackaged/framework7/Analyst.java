@@ -1,0 +1,159 @@
+/*
+ * Copyright (C) 2014 Student 200825599: <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * University of Leeds, Leeds, West Yorkshire, UK.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/*
+ import java.awt.*;
+ import java.awt.event.*; 
+ */
+import java.awt.FileDialog;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+
+/**
+ * Class: Analyst.java <br>
+ * Version: 1.7 <br>
+ * Date: 26 Nov 2014<br>
+ * Overview:The Analyst class provides the framework for a basic GIS application
+ * utilized in the GEOG5561M course<br>
+ *
+ * @author Student 200825599
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.7 - 24 Nov 2014
+ */
+public class Analyst extends Frame implements ActionListener {
+
+    //put storage and io objects in here
+    //Instantiate new Storage object
+    Storage store = new Storage();
+    //Instantiate new IO object
+    IO io = new IO();
+    
+    public Analyst() {
+        // Our Analyst code this practical will go here.
+
+        //Instantiate new frame, define properties and set to visible
+        Frame frame = new Frame("Framework 6 Window");
+        frame.setSize(300, 300);
+        frame.setLayout(new FlowLayout());
+        
+        //Add new menubar
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        menuBar.add(fileMenu);
+        //Add MenuItem to Open file
+        MenuItem openMenuItem = new MenuItem("Open...");
+        fileMenu.add(openMenuItem);
+        //Add Listener
+        openMenuItem.addActionListener(this);
+
+        //Add MenuItem to Save file
+        MenuItem saveMenuItem = new MenuItem("Save...");
+        fileMenu.add(saveMenuItem);
+        //Add Listener
+        saveMenuItem.addActionListener(this);
+        
+        //Add MenuItem to Exit app
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        fileMenu.add(exitMenuItem);
+        //Add Listener
+        exitMenuItem.addActionListener(this);
+
+        //Process menu list
+        Menu processMenu = new Menu("Process");
+        menuBar.add(processMenu);
+        //Add Randomise to Process file
+        MenuItem randomDataMenuItem = new MenuItem("Generate Random Data");
+        processMenu.add(randomDataMenuItem);
+        //Add Listener
+        randomDataMenuItem.addActionListener(this);
+
+        //Set the menu bar
+        frame.setMenuBar(menuBar);
+
+
+        //Activate frame
+        frame.setVisible(true);
+        
+        //Add listener to handle window closing
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                //((Frame) e.getSource()).dispose();
+                // or
+                dispose();
+                System.exit(0);
+            }
+        });
+        
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        MenuItem clickedMenuItem = (MenuItem) e.getSource();
+        //Migrate to a case statement to switch between choices more efficiently
+        String name = clickedMenuItem.getLabel();
+        
+        switch (name) {
+            case "Open...":
+                //Open the file with the input data
+                FileDialog fd = new FileDialog(this, "Open File", FileDialog.LOAD);
+                fd.setVisible(true);
+                File f = null;
+                if ((fd.getDirectory() != null) || (fd.getFile() != null)) {
+                    f = new File(fd.getDirectory() + fd.getFile());
+                    store.setData(io.readData(f));
+                    break;
+                }
+            
+            case "Save...":
+                //Save the file with the input data
+                FileDialog fw = new FileDialog(this, "Save File", FileDialog.SAVE);
+                fw.setVisible(true);
+                File f2 = null;
+                if ((fw.getDirectory() != null) || (fw.getFile() != null)) {
+                    f2 = new File(fw.getDirectory() + fw.getFile());
+                    io.writeData(store.data, f2);
+                    break;
+                }
+
+            case "Generate Random Data":
+                store.setRandomData();
+                break;
+            
+            case "Exit":
+                dispose();
+                System.exit(0);
+                
+            default:
+                System.out.println("Youse guys broke it....");
+                System.exit(500);
+        }
+    }
+    
+    public static void main(String args[]) {
+        new Analyst();
+    }
+    
+}
