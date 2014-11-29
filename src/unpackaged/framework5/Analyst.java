@@ -40,6 +40,19 @@ public class Analyst {
         //Output data from store object via io writeData method
         io.writeData(store.data);
         
+        /*
+         Once you've got that done, test it works and you're done.
+
+        You might like to replace the hardwired file locations with FileDialogs,
+        one with its constructor's mode set to FileDialog.LOAD and the other 
+        FileDialog.SAVE. Again, the code is in the lecture slides; you'll need 
+        to import java.awt.* to use FileDialogs.
+
+        You might also want to see if you can mess around with the data before 
+        you write it to the file, for example, using the rerangeArray code. 
+        When you're happy with your code, you're done.
+
+        */
         
     }
 
