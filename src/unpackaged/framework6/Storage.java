@@ -18,13 +18,13 @@
  */
 /**
  * Class: Storage.java<br>
- * Version: 1.5 - 17 Nov 2014<br>
+ * Version: 1.7 - Nov 2014<br>
  * Overview: The Storage class provides the storage object and its methods that
  * are required for a basic GIS application utilized in the GEOG5561M course
  *
- * @author Arie Claassens
- * <a href="mailto:arieclaassens@gmail.com">arieclaassens@gmail.com</a>
- * @version 1.5 - 17 Nov 2014
+* @author Student 200825599
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.7 - 24 Nov 2014
  */
 public class Storage {
 

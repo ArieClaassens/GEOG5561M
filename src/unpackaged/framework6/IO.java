@@ -29,13 +29,14 @@ import java.util.StringTokenizer;
  *
  * @author Student 200825599:
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.7 - 24 Nov 2014
  */
 public class IO {
 
-    public double[][] readData() {
+    public double[][] readData(File f) {
         // Our reading code will go here.
         //File f = new File("in.txt");
-        File f = new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework5\\in.txt");
+        //File f = new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework6\\in.txt");
 
         // Set up a FileReader (must be in a try-catch block).
         FileReader fr = null;
@@ -130,12 +131,13 @@ public class IO {
         return data;
     }
 
-    public void writeData(double[][] dataIn) {
+    public void writeData(double[][] dataIn, File f) {
         // Our writing code will go here.
         BufferedWriter bw = null;
 
         try {
-            bw = new BufferedWriter(new FileWriter(new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework5\\out.txt")));
+            //bw = new BufferedWriter(new FileWriter(new File("C:\\Git\\GEOG5561M\\src\\unpackaged\\framework6\\out.txt")));
+            bw = new BufferedWriter(new FileWriter(f));
         } catch (IOException e) {
             e.printStackTrace();
         }

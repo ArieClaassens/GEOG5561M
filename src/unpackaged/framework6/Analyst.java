@@ -16,48 +16,144 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*
+ import java.awt.*;
+ import java.awt.event.*; 
+ */
+import java.awt.FileDialog;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+
 /**
  * Class: Analyst.java <br>
- * Version: 1.6 <br>
+ * Version: 1.7 <br>
  * Date: 26 Nov 2014<br>
  * Overview:The Analyst class provides the framework for a basic GIS application
  * utilized in the GEOG5561M course<br>
  *
- * @author Arie Claassens
- * <a href="mailto:arieclaassens@gmail.com">arieclaassens@gmail.com</a>
- * @version 1.6 - 24 Nov 2014
+ * @author Student 200825599
+ * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
+ * @version 1.7 - 24 Nov 2014
  */
-public class Analyst {
+public class Analyst extends Frame implements ActionListener {
 
+    //put storage and io objects in here
+    //Instantiate new Storage object
+    Storage store = new Storage();
+    //Instantiate new IO object
+    IO io = new IO();
+    
     public Analyst() {
-        Storage store = new Storage();
         // Our Analyst code this practical will go here.
-        //Instantiate new IO object
-        IO io = new IO();
-        //Populate store object with data from io object
-        store.setData(io.readData());
+
+        //Instantiate new frame, define properties and set to visible
+        Frame frame = new Frame("Framework 6 Window");
+        frame.setSize(300, 300);
+        frame.setLayout(new FlowLayout());
         
-        //Output data from store object via io writeData method
-        io.writeData(store.data);
+        //Add new menubar
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        menuBar.add(fileMenu);
+        //Add MenuItem to Open file
+        MenuItem openMenuItem = new MenuItem("Open...");
+        fileMenu.add(openMenuItem);
+        //Add Listener
+        openMenuItem.addActionListener(this);
+
+        //Add MenuItem to Save file
+        MenuItem saveMenuItem = new MenuItem("Save...");
+        fileMenu.add(saveMenuItem);
+        //Add Listener
+        saveMenuItem.addActionListener(this);
         
-        /*
-         Once you've got that done, test it works and you're done.
+        //Add MenuItem to Exit app
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        fileMenu.add(exitMenuItem);
+        //Add Listener
+        exitMenuItem.addActionListener(this);
 
-        You might like to replace the hardwired file locations with FileDialogs,
-        one with its constructor's mode set to FileDialog.LOAD and the other 
-        FileDialog.SAVE. Again, the code is in the lecture slides; you'll need 
-        to import java.awt.* to use FileDialogs.
+        //Process menu list
+        Menu processMenu = new Menu("Process");
+        menuBar.add(processMenu);
+        //Add Randomise to Process file
+        MenuItem randomDataMenuItem = new MenuItem("Generate Random Data");
+        processMenu.add(randomDataMenuItem);
+        //Add Listener
+        randomDataMenuItem.addActionListener(this);
 
-        You might also want to see if you can mess around with the data before 
-        you write it to the file, for example, using the rerangeArray code. 
-        When you're happy with your code, you're done.
+        //Set the menu bar
+        frame.setMenuBar(menuBar);
 
-        */
+
+        //Activate frame
+        frame.setVisible(true);
+        
+        //Add listener to handle window closing
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                //((Frame) e.getSource()).dispose();
+                // or
+                dispose();
+                System.exit(0);
+            }
+        });
         
     }
+    
+    public void actionPerformed(ActionEvent e) {
+        MenuItem clickedMenuItem = (MenuItem) e.getSource();
+        //Migrate to a case statement to switch between choices more efficiently
+        String name = clickedMenuItem.getLabel();
+        
+        switch (name) {
+            case "Open...":
+                //Open the file with the input data
+                FileDialog fd = new FileDialog(this, "Open File", FileDialog.LOAD);
+                fd.setVisible(true);
+                File f = null;
+                if ((fd.getDirectory() != null) || (fd.getFile() != null)) {
+                    f = new File(fd.getDirectory() + fd.getFile());
+                    store.setData(io.readData(f));
+                    break;
+                }
+            
+            case "Save...":
+                //Save the file with the input data
+                FileDialog fw = new FileDialog(this, "Save File", FileDialog.SAVE);
+                fw.setVisible(true);
+                File f2 = null;
+                if ((fw.getDirectory() != null) || (fw.getFile() != null)) {
+                    f2 = new File(fw.getDirectory() + fw.getFile());
+                    io.writeData(store.data, f2);
+                    break;
+                }
 
+            case "Generate Random Data":
+                store.setRandomData();
+                break;
+            
+            case "Exit":
+                dispose();
+                System.exit(0);
+                
+            default:
+                System.out.println("Youse guys broke it....");
+                System.exit(500);
+        }
+    }
+    
     public static void main(String args[]) {
         new Analyst();
     }
-
+    
 }
