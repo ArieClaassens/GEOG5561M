@@ -20,45 +20,48 @@
  import java.awt.*;
  import java.awt.event.*; 
  */
+
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
+import java.io.File; 
 
 /**
  * Class: Analyst.java <br>
- * Version: 1.7 <br>
- * Date: 26 Nov 2014<br>
+ * Version: 1.8 <br>
+ * Date: 29 Nov 2014<br>
  * Overview:The Analyst class provides the framework for a basic GIS application
  * utilized in the GEOG5561M course<br>
  *
  * @author Student 200825599
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
- * @version 1.7 - 24 Nov 2014
+ * @version 1.8 - 29 Nov 2014
  */
 public class Analyst extends Frame implements ActionListener {
+
 
     //put storage and io objects in here
     //Instantiate new Storage object
     Storage store = new Storage();
     //Instantiate new IO object
     IO io = new IO();
-    
+
     public Analyst() {
         // Our Analyst code this practical will go here.
-
         //Instantiate new frame, define properties and set to visible
-        Frame frame = new Frame("Framework 6 Window");
+        Frame frame = new Frame("Framework 7 Window");
         frame.setSize(300, 300);
         frame.setLayout(new FlowLayout());
-        
+        //frame.setBackground(Color.YELLOW);
+        Graphics g = frame.getGraphics();
+
         //Add new menubar
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -74,7 +77,7 @@ public class Analyst extends Frame implements ActionListener {
         fileMenu.add(saveMenuItem);
         //Add Listener
         saveMenuItem.addActionListener(this);
-        
+
         //Add MenuItem to Exit app
         MenuItem exitMenuItem = new MenuItem("Exit");
         fileMenu.add(exitMenuItem);
@@ -93,28 +96,22 @@ public class Analyst extends Frame implements ActionListener {
         //Set the menu bar
         frame.setMenuBar(menuBar);
 
+        //Set frame to middle of screen
+        frame.setLocationRelativeTo(null);
 
         //Activate frame
         frame.setVisible(true);
         
-        //Add listener to handle window closing
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                //((Frame) e.getSource()).dispose();
-                // or
-                dispose();
-                System.exit(0);
-            }
-        });
-        
+        //Call repaint to manually run the overridden paint method of object
+        frame.repaint();
+
     }
-    
+
     public void actionPerformed(ActionEvent e) {
         MenuItem clickedMenuItem = (MenuItem) e.getSource();
         //Migrate to a case statement to switch between choices more efficiently
         String name = clickedMenuItem.getLabel();
-        
+
         switch (name) {
             case "Open...":
                 //Open the file with the input data
@@ -124,9 +121,11 @@ public class Analyst extends Frame implements ActionListener {
                 if ((fd.getDirectory() != null) || (fd.getFile() != null)) {
                     f = new File(fd.getDirectory() + fd.getFile());
                     store.setData(io.readData(f));
+                    Image image = store.getDataAsImage();
+                    //g.drawImage(image, getInsets().left, getInsets().top, this);
                     break;
                 }
-            
+
             case "Save...":
                 //Save the file with the input data
                 FileDialog fw = new FileDialog(this, "Save File", FileDialog.SAVE);
@@ -141,19 +140,27 @@ public class Analyst extends Frame implements ActionListener {
             case "Generate Random Data":
                 store.setRandomData();
                 break;
-            
+
             case "Exit":
                 dispose();
                 System.exit(0);
-                
+
             default:
                 System.out.println("Youse guys broke it....");
                 System.exit(500);
         }
+        
+        repaint();
     }
     
+public void paint (Graphics g) {
+      //g.drawString("Hello World", 100, 100);
+      Image image = store.getDataAsImage(); // or equivalent
+      g.drawImage(image, getInsets().left, getInsets().top, this);
+   }
+
     public static void main(String args[]) {
         new Analyst();
     }
-    
+
 }

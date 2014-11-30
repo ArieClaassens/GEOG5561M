@@ -16,15 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+ import java.awt.*;
+ import java.awt.image.*; 
+ */
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Panel; 
+import java.awt.image.MemoryImageSource; 
+
 /**
  * Class: Storage.java<br>
- * Version: 1.7 - Nov 2014<br>
+ * Version: 1.8 - Nov 2014<br>
  * Overview: The Storage class provides the storage object and its methods that
  * are required for a basic GIS application utilized in the GEOG5561M course
  *
-* @author Student 200825599
+ * @author Student 200825599
  * <a href="mailto:gy13awc@leeds.ac.uk">gy13awc@leeds.ac.uk</a>
- * @version 1.7 - 24 Nov 2014
+ * @version 1.8 - 30 Nov 2014
  */
 public class Storage {
 
@@ -253,4 +263,43 @@ public class Storage {
         return tempArray;
 
     }
+
+    public Image getDataAsImage() {
+        // Our Storage code this practical will go here.
+        
+        //Convert 2D image data array to 1D, reranged array with values between
+        //0 and 255
+        
+        // Use the methods from this practical
+        //http://www.geog.leeds.ac.uk/courses/other/programming/practicals/raster-framework/part4/index.html
+        //to get the data in a 1D double array
+        // re-ranged between 0 and 255 (we'll call it 'data1Dreranged').
+        double[] data1Dreranged = get1DArray();
+
+        // Make a int array called "pixels" [data1Dreranged.length]
+        int[] pixels = new int[data1Dreranged.length];
+        // loop i = 0 to pixels.length
+        // int value = (int) data1Dreranged[i]
+        // Use value to make a new greyscale Color
+        // pixel[i] = greyscale Colors compressed int
+        // end loop
+        for (int i = 0; i < pixels.length; i++) {
+            //Get value of 1D array and cast as int
+            int value = (int)data1Dreranged[i];
+            //generate grayscale cell (all 3 values the same)
+            Color pixel = new Color(value,value,value);
+            pixels[i] = pixel.getRGB();
+            //System.out.println(i + " -> " + value + " ---> " + pixel);
+        }
+        
+        // Make a MemoryImageSource, remembering that data.length and
+        // data[0].length give you the height and width of the data.
+        MemoryImageSource memImage = new MemoryImageSource(data.length,data[0].length,pixels,0,data.length);
+        // Make an Image object.
+        Panel panel = new Panel();
+        Image image = panel.createImage(memImage);
+        // Return the Image object. 
+        return image;
+    }
+
 }
