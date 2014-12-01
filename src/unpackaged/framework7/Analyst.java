@@ -24,14 +24,15 @@
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File; 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+
 
 /**
  * Class: Analyst.java <br>
@@ -46,6 +47,13 @@ import java.io.File;
  */
 public class Analyst extends Frame implements ActionListener {
 
+    /*
+    public void paint(Graphics g) {
+        Graphics2D ga = (Graphics2D) g;
+        ga.setPaint(Color.red);
+        ga.drawLine(200, 100, 200, 300);
+    }
+    */
 
     //put storage and io objects in here
     //Instantiate new Storage object
@@ -57,15 +65,27 @@ public class Analyst extends Frame implements ActionListener {
         // Our Analyst code this practical will go here.
         //Instantiate new frame, define properties and set to visible
         Frame frame = new Frame("Framework 7 Window");
+
+        //Add listener to catch windowClosing events
+        frame.addWindowListener(
+                new WindowAdapter() {
+                    public void windowClosing(WindowEvent we) {
+                        System.exit(0);
+                    }
+                }
+        );
+
         frame.setSize(300, 300);
         frame.setLayout(new FlowLayout());
-        //frame.setBackground(Color.YELLOW);
-        Graphics g = frame.getGraphics();
+        //frame.setBackground(Color.BLUE);
+        //frame.setBackground(Color.white);
+        //frame.setForeground(Color.white);
 
         //Add new menubar
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         menuBar.add(fileMenu);
+
         //Add MenuItem to Open file
         MenuItem openMenuItem = new MenuItem("Open...");
         fileMenu.add(openMenuItem);
@@ -101,10 +121,9 @@ public class Analyst extends Frame implements ActionListener {
 
         //Activate frame
         frame.setVisible(true);
-        
+
         //Call repaint to manually run the overridden paint method of object
         frame.repaint();
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -121,8 +140,7 @@ public class Analyst extends Frame implements ActionListener {
                 if ((fd.getDirectory() != null) || (fd.getFile() != null)) {
                     f = new File(fd.getDirectory() + fd.getFile());
                     store.setData(io.readData(f));
-                    Image image = store.getDataAsImage();
-                    //g.drawImage(image, getInsets().left, getInsets().top, this);
+                    repaint();
                     break;
                 }
 
@@ -144,21 +162,29 @@ public class Analyst extends Frame implements ActionListener {
             case "Exit":
                 dispose();
                 System.exit(0);
+                break;
 
             default:
-                System.out.println("Youse guys broke it....");
+                System.out.println("You broke it.....");
                 System.exit(500);
         }
-        
-        repaint();
-    }
-    
-public void paint (Graphics g) {
-      //g.drawString("Hello World", 100, 100);
-      Image image = store.getDataAsImage(); // or equivalent
-      g.drawImage(image, getInsets().left, getInsets().top, this);
-   }
 
+        //repaint();
+    }
+
+    
+    /*
+    public void paint(Graphics g) {
+
+        g.drawString("Hello World", 100, 100);
+        Image image = store.getDataAsImage(); // or equivalent
+        g.drawImage(image, getInsets().left, getInsets().top, this);
+        g.setColor(Color.red);
+        g.drawLine(10, 10, 300, 200); 	// x1, y1, x2, y2
+        g.drawString("hello World", 50, 50);
+    }
+    */
+    
     public static void main(String args[]) {
         new Analyst();
     }
